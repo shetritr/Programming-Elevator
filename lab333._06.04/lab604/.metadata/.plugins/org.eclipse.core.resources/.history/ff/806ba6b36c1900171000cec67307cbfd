@@ -1,0 +1,61 @@
+/*
+ * main implementation: use this 'C' sample to create your own application
+ *
+ */
+
+
+//#include "derivative.h" /* include peripheral declarations */
+# include "TFC.h"
+#define MUDULO_REGISTER  0x2EE0
+unsigned int LightIntensity = MUDULO_REGISTER/2;  // Global variable
+void Motor_Dir_Speed (int Direction, int Speed);
+
+int main(void){
+	Motor_Dir_Speed(1,1);
+	InitGPIO();
+	ClockSetupTPM();
+	InitTPM(0); // Blue LED initialisation 
+	InitTPM(2); // Red and Green LEDs initialisation
+	InitPIT();
+	TPM0_SC |= TPM_SC_CMOD(1); //Start the TPM0 counter
+	TPM2_SC |= TPM_SC_CMOD(1); //Start the TPM2 counter
+	PIT_MCR &= ~PIT_MCR_MDIS_MASK; //Enable the PIT module
+	wait(); // sleep
+	return 0;
+}
+
+
+
+void Motor_Dir_Speed (int Direction, int Speed){
+   TPM0_C1V =  0xFFFF;
+   PORTC_PCR5_TOGGLE;
+   PORTC_PCR6_OFF;
+}
+//-----------------------------------------------------------------
+//  PORTD - ISR = Interrupt Service Routine
+//-----------------------------------------------------------------
+void PORTD_IRQHandler(void){
+	volatile unsigned int i;
+	// check that the interrupt was for switch
+	if (PORTD_ISFR & SW_POS) {
+		
+		LightIntensity = (LightIntensity + 0x0960) & 0x3FFF;
+	}
+	//Debounce or using PFE field
+	while(!(GPIOD_PDIR & SW_POS) );// wait of release the button
+	for(i=10000 ; i>0 ; i--); //delay, button debounce
+	
+	PORTD_ISFR |= 0x00000080;  // clear interrupt flag bit of PTD7
+}
+//-----------------------------------------------------------------
+// PIT - ISR = Interrupt Service Routine
+//-----------------------------------------------------------------
+void PIT_IRQHandler(){
+	
+	static char Color = 0;
+	Color = (Color + 0x01) & 0x0007;
+	TPM0_C1V = (Color & 0x01) ? LightIntensity : 0xFFFF;
+	TPM2_C0V = (Color & 0x02) ? LightIntensity : 0xFFFF;
+	TPM2_C1V = (Color & 0x04) ? LightIntensity : 0xFFFF;
+	PIT_TFLG0 = PIT_TFLG_TIF_MASK; //Turn off the Pit 0 Irq flag 
+}

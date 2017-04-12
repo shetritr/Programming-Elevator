@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="OptionalMessageDialog.hide.">
+	</section>
+	<section name="completion_proposal_size">
+	</section>
+	<section name="SIMPLE_FLASH_DIALOG_SETTINGS_SECTION">
+		<item value="true" key="SIMPLE_FLASH_DIALOG_SETTINGS_SAVE_TARGET_TASK_OPTION"/>
+		<item value="0" key="SIMPLE_FLASH_DIALOG_SETTINGS_FILE_OFFSET"/>
+		<item value="false" key="SIMPLE_FLASH_DIALOG_SETTINGS_UNPROTECT_OPTION"/>
+		<item value="KL25Z128M4" key="SIMPLE_FLASH_DIALOG_SETTINGS_PROCESSOR"/>
+		<item value="" key="SIMPLE_FLASH_DIALOG_SETTINGS_FILENAME"/>
+		<item value="lab604_FLASH_PnE U-MultiLink" key="SIMPLE_FLASH_DIALOG_SETTINGS_SYSTEM"/>
+		<item value="0" key="SIMPLE_FLASH_DIALOG_SETTINGS_FLASH_CONFIGURATION_INDEX"/>
+		<item value="" key="SIMPLE_FLASH_FLASH_CONFIG_FOLDER"/>
+		<list key="QUICK_FLASH_DIALOG_SETTINGS_FLASH_CONFIGURATIONS">
+			<item value="C:\Freescale\CW MCU v10.6\MCU\bin\plugins\support\TargetTask\Flash_Programmer\ARM\KL25Z128M4.xml"/>
+		</list>
+	</section>
+	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration.internal">
+		<item value="384" key="size.width"/>
+		<item value="180" key="size.height"/>
+	</section>
+	<section name="org.eclipse.cdt.ui.text.hover.CMacroExpansionExploration">
+	</section>
+</section>
